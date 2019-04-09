@@ -1,2 +1,0 @@
-# supreme-fiesta
-WIP
