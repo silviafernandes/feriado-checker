@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Hoje é feriado?</title>
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600" rel="stylesheet">
+<style>
+body {
+  font-family: 'Work Sans', sans-serif;
+  background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;  
+}
+h1 {
+  color: rgb(68, 56, 247);
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 100px 0px 0px 0px;
+  text-align: center;
+}
+
+h2 {
+  color: rgb(68, 56, 247);
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 24px;
+}
+
+h3 {
+  color: rgba(69, 56, 247, 0.623);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+button {
+  font-family: 'Work Sans', sans-serif;
+  background:  rgb(68, 56, 247);
+  border-radius: 30px;
+  box-shadow: 0px 8px 8px rgba(37, 39, 89, 0.08);
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  margin: 50px auto;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+button:hover {
+  transition: all 200ms ease-in-out;
+  background:  rgb(49, 36, 241);
+}
+
+#feriadoText {
+  text-align: center;
+  font-weight: 600;
+  color: rgb(22, 16, 110);
+  font-size: 22px;
+  padding: 20px;
+  line-height: 6px;
+}
+
+.hiddenImageFeriado {
+  display: none;
+}
+
+.showImage {
+    display: block;
+}
+
+#dataText {
+  color: rgb(22, 16, 110);
+  font-size: 14px; 
+}
+
+</style>  
+</head>
+	
+	<body>
+		<h1>Será que hoje é feriado?</h1>
+		<h2>Para aquelas pessoas que não têm a certeza se hoje é feriado</h2>
+    <h3>(Só disponível para 2019, por enquanto!)</h3>
+		<br>
+
+	  <button onclick="feriadoChecker()"> Hoje é feriado?</button>
+	  
+	  <p id="feriadoText"></p>
+	  <img id="imageFeriado" class="hiddenImageFeriado" src="https://media.giphy.com/media/jd6TVgsph6w7e/source.gif" />
+    <p id="dataText"></p>
+
+<br>
+<script>
+  // Objecto com feriados portugueses organizados por mês
+const feriadosPT = {
+  'janeiro': [["01", "01", "o Primeiro de Janeiro. Feliz Ano Novo!"]],
+  'abril': [["19", "04", "a Sexta-feira Santa"], ["21", "04", "a Páscoa. Atenção aos coelhinhos!"], ["25", "04", "o 25 de Abril, dia da Liberdade"]],
+  'maio': [["01", "05", "o Dia do Trabalhador"]],
+  'junho': [["10", "06", "o Dia de Portugal. Às armas!"], ["20", "06", "o Corpo de Deus"]],
+  'agosto': [["15", "08", "a Assunção de Nossa Senhora"]],
+  'outubro': [["05", "10", "a Implantação da República"]],
+  'novembro': [["01", "11", "o Dia de Todos os Santos"]],
+  'dezembro': [["01", "12", "a Restauração da Independência"], ["08", "12", "o Dia da Imaculada Conceição"], ["25","12", "o Natal!"]]
+};
+
+
+// Ir buscar a data de hoje
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+
+// Função onclick no botão
+function feriadoChecker() {
+  for (let i = 0; i < Object.keys(feriadosPT).length; i++) {
+    for (let j = 0; j < Object.keys(feriadosPT)[i].length; j++) {
+
+      if (Object.values(feriadosPT)[i][j] != undefined) {
+        let image = document.getElementById('imageFeriado');
+
+        if (dd === Object.values(feriadosPT)[i][j][0]
+          && mm === Object.values(feriadosPT)[i][j][1]) {
+
+          document.getElementById("feriadoText").innerHTML = "SIM! Aproveita o dia!";
+          image.setAttribute("src", "https://media.giphy.com/media/jd6TVgsph6w7e/source.gif");
+          image.className = "display";
+
+          document.getElementById("dataText").innerHTML = `Hoje, dia ${dd} / ${mm}, celebramos ${Object.values(feriadosPT)[i][j][2]}`;
+          return;
+        }
+        document.getElementById("feriadoText").innerHTML = " Hoje ainda não é feriado 😭";
+        image.setAttribute("src", "https://media.giphy.com/media/xHwqspaBmfUMU/giphy.gif");
+        image.className = "display";
+        document.getElementById("dataText").innerHTML = `Hoje é dia ${dd} / ${mm}, achavas mesmo que era feriado?`;
+      }
+    }
+  }
+};
+</script>
+  </body>
+</html>
